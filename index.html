@@ -712,6 +712,33 @@
             nextQuestion();
         }
 
+        // Helper function to parse inputs including scientific notation (e.g. 1.5e18, 1.5*10^18, 4,700)
+        function parseScientificInput(str) {
+            if (typeof str === 'number') return str;
+            if (!str) return NaN;
+
+            // Clean commas and whitespace
+            let cleaned = String(str).trim().replace(/,/g, '');
+
+            // Handle e-notation directly (e.g., "1.5e18" or "4.7e-3")
+            if (!isNaN(Number(cleaned))) {
+                return Number(cleaned);
+            }
+
+            // Handle "a*10^b" or "a x 10^b" notation
+            const sciPattern = /^([+-]?\d*\.?\d+)\s*[\*xX×]?\s*10\^([+-]?\d+)$/;
+            const match = cleaned.match(sciPattern);
+            if (match) {
+                const coeff = parseFloat(match[1]);
+                const exp = parseInt(match[2], 10);
+                return coeff * Math.pow(10, exp);
+            }
+
+            // Fallback float extraction
+            const extractedFloat = parseFloat(cleaned);
+            return extractedFloat;
+        }
+
         // Modal Controls
         function toggleReferenceModal() {
             const modal = document.getElementById('reference-modal');
