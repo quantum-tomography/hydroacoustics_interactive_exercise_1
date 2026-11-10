@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-900 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metric & Derived Unit Conversion Lab</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            700: '#0e7490',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="bg-slate-800/80 backdrop-blur border-b border-slate-700/60 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-xl text-white shadow-lg shadow-cyan-500/20">
+                    <i class="fa-solid fa-flask-vial text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight tracking-wide text-white">UnitLab <span class="text-cyan-400 font-mono text-sm font-normal">v2.0</span></h1>
+                    <p class="text-xs text-slate-400">Metric Prefix & Derived Unit Mastery</p>
+                </div>
+            </div>
+
+            <!-- Stats Header Widget -->
+            <div class="flex items-center space-x-4 text-xs sm:text-sm">
+                <div class="bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700/50 flex items-center space-x-2">
+                    <i class="fa-solid fa-trophy text-amber-400"></i>
+                    <span class="text-slate-400">Score:</span>
+                    <span id="score-display" class="font-mono font-bold text-cyan-400">0</span>
+                </div>
+                <div class="bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700/50 flex items-center space-x-2">
+                    <i class="fa-solid fa-fire text-orange-400"></i>
+                    <span class="text-slate-400">Streak:</span>
+                    <span id="streak-display" class="font-mono font-bold text-orange-400">0</span>
+                </div>
+                <button id="toggle-ref-btn" onclick="toggleReferenceModal()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 rounded-lg border border-slate-600 transition flex items-center space-x-1.5 text-xs">
+                    <i class="fa-solid fa-book-bookmark text-cyan-400"></i>
+                    <span class="hidden sm:inline">Prefix Table</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left Column: Settings & Custom Practice Config (4 cols) -->
+        <aside class="lg:col-span-4 space-y-6">
+
+            <!-- Category / Mode Selection Card -->
+            <div class="bg-slate-800/60 rounded-2xl p-5 border border-slate-700/60 backdrop-blur-sm space-y-4 shadow-xl">
+                <h2 class="text-base font-semibold text-slate-200 flex items-center space-x-2">
+                    <i class="fa-solid fa-sliders text-cyan-400"></i>
+                    <span>Practice Mode Settings</span>
+                </h2>
+
+                <!-- Topic Selector -->
+                <div>
+                    <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Topic Focus</label>
+                    <div class="grid grid-cols-1 gap-2" id="topic-selector">
+                        <button onclick="setTopic('all')" data-topic="all" class="topic-btn active flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left">
+                            <span class="flex items-center"><i class="fa-solid fa-globe w-6 text-cyan-400"></i> Mixed Practice</span>
+                            <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">All</span>
+                        </button>
+                        <button onclick="setTopic('standard')" data-topic="standard" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left">
+                            <span class="flex items-center"><i class="fa-solid fa-ruler-horizontal w-6 text-emerald-400"></i> Basic Prefixes</span>
+                            <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">m, k, μ, M...</span>
+                        </button>
+                        <button onclick="setTopic('extreme')" data-topic="extreme" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left">
+                            <span class="flex items-center"><i class="fa-solid fa-microscope w-6 text-purple-400"></i> Extreme Scale</span>
+                            <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">pico, tera, giga</span>
+                        </button>
+                        <button onclick="setTopic('derived')" data-topic="derived" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left">
+                            <span class="flex items-center"><i class="fa-solid fa-bolt w-6 text-amber-400"></i> Derived Units</span>
+                            <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">Farads, Ohms, Hz</span>
+                        </button>
+                        <button onclick="setTopic('area_vol')" data-topic="area_vol" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left">
+                            <span class="flex items-center"><i class="fa-solid fa-cube w-6 text-rose-400"></i> Area & Volume</span>
+                            <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">mm², cm³, m³</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Input Style Toggle -->
+                <div class="pt-2 border-t border-slate-700/50">
+                    <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Input Format</label>
+                    <div class="grid grid-cols-2 gap-2 bg-slate-900/60 p-1 rounded-xl border border-slate-700/50">
+                        <button id="mode-mc" onclick="setInputMode('mc')" class="py-1.5 text-xs font-medium rounded-lg transition text-slate-300 active-mode shadow">Multiple Choice</button>
+                        <button id="mode-direct" onclick="setInputMode('direct')" class="py-1.5 text-xs font-medium rounded-lg transition text-slate-400">Direct Number</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Cheat Sheet Mini-Widget -->
+            <div class="bg-slate-800/60 rounded-2xl p-5 border border-slate-700/60 backdrop-blur-sm space-y-3">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-semibold text-slate-200">Key Prefix Exponents</h3>
+                    <button onclick="toggleReferenceModal()" class="text-xs text-cyan-400 hover:underline">Full Chart</button>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                    <div class="p-2 bg-slate-900/50 rounded-lg flex justify-between border border-slate-700/40">
+                        <span class="text-cyan-300">Tera (T)</span>
+                        <span class="text-slate-400">10¹²</span>
+                    </div>
+                    <div class="p-2 bg-slate-900/50 rounded-lg flex justify-between border border-slate-700/40">
+                        <span class="text-cyan-300">Giga (G)</span>
+                        <span class="text-slate-400">10⁹</span>
+                    </div>
+                    <div class="p-2 bg-slate-900/50 rounded-lg flex justify-between border border-slate-700/40">
+                        <span class="text-cyan-300">Mega (M)</span>
+                        <span class="text-slate-400">10⁶</span>
+                    </div>
+                    <div class="p-2 bg-slate-900/50 rounded-lg flex justify-between border border-slate-700/40">
+                        <span class="text-cyan-300">kilo (k)</span>
+                        <span class="text-slate-400">10³</span>
+                    </div>
+                    <div class="p-2 bg-slate-900/50 rounded-lg flex justify-between border border-slate-700/40">
+                        <span class="text-cyan-300">milli (m)</span>
+                        <span class="text-slate-400">10⁻³</span>
+                    </div>
+                    <div class="p-2 bg-slate-900/50 rounded-lg flex justify-between border border-slate-700/40">
+                        <span class="text-cyan-300">micro (μ)</span>
+                        <span class="text-slate-400">10⁻⁶</span>
+                    </div>
+                    <div class="p-2 bg-slate-900/50 rounded-lg flex justify-between border border-slate-700/40">
+                        <span class="text-cyan-300">nano (n)</span>
+                        <span class="text-slate-400">10⁻⁹</span>
+                    </div>
+                    <div class="p-2 bg-slate-900/50 rounded-lg flex justify-between border border-slate-700/40">
+                        <span class="text-cyan-300">pico (p)</span>
+                        <span class="text-slate-400">10⁻¹²</span>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- Right Column: Interactive Quiz Area (8 cols) -->
+        <section class="lg:col-span-8 flex flex-col space-y-6">
+
+            <!-- Question Card -->
+            <div class="bg-slate-800/80 rounded-2xl p-6 sm:p-8 border border-slate-700/60 backdrop-blur-md shadow-2xl flex-1 flex flex-col justify-between relative overflow-hidden">
+                <!-- Background Accent Glow -->
+                <div class="absolute -top-24 -right-24 w-60 h-60 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-24 -left-24 w-60 h-60 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="space-y-6 relative z-10">
+                    <!-- Progress Bar & Top Meta -->
+                    <div>
+                        <div class="flex justify-between items-center text-xs font-semibold text-slate-400 mb-2">
+                            <span id="question-category-tag" class="px-2.5 py-1 bg-cyan-950 text-cyan-400 rounded-full border border-cyan-800/50 font-mono">
+                                CATEGORY
+                            </span>
+                            <span id="question-count">Question 1</span>
+                        </div>
+                        <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-700/50">
+                            <div id="progress-bar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-0 transition-all duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Problem Display Area -->
+                    <div class="py-4 border-y border-slate-700/40">
+                        <p class="text-xs font-mono uppercase tracking-widest text-slate-400 mb-1">Convert the value:</p>
+                        <h3 id="question-text" class="text-xl sm:text-2xl font-bold text-white tracking-wide leading-relaxed">
+                            Loading problem...
+                        </h3>
+                    </div>
+
+                    <!-- Answer Form Container -->
+                    <div id="answer-container" class="space-y-4">
+                        <!-- Dynamic Multiple Choice or Direct Input will render here -->
+                    </div>
+
+                    <!-- Explanation / Feedback Banner (Hidden initially) -->
+                    <div id="feedback-card" class="hidden p-4 rounded-xl border transition-all duration-300 space-y-2">
+                        <div class="flex items-center space-x-2 font-bold text-sm" id="feedback-title">
+                            <!-- JS populated header -->
+                        </div>
+                        <p id="feedback-text" class="text-xs sm:text-sm text-slate-300 leading-relaxed font-mono">
+                            <!-- JS populated solution explanation -->
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Footer Navigation Buttons -->
+                <div class="pt-6 mt-6 border-t border-slate-700/40 flex items-center justify-between relative z-10">
+                    <button onclick="skipQuestion()" class="px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-700/50 text-sm font-medium transition flex items-center space-x-2">
+                        <i class="fa-solid fa-forward"></i>
+                        <span>Skip Problem</span>
+                    </button>
+
+                    <button id="next-btn" onclick="nextQuestion()" class="px-6 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl text-sm font-semibold shadow-lg shadow-cyan-500/25 transition-all flex items-center space-x-2">
+                        <span>Next Challenge</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scientific Notation Helper / Converter Tool -->
+            <div class="bg-slate-800/40 rounded-2xl p-4 border border-slate-700/50 text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-lightbulb text-amber-400 text-base"></i>
+                    <span><strong>Formatting Tip:</strong> You can input decimal numbers (e.g. <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">0.0047</code>) or scientific exponent notation (e.g. <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">4.7e-3</code> or <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">4.7*10^-3</code>).</span>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Reference Table Modal -->
+    <div id="reference-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden transition-opacity duration-300">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
+            <!-- Modal Header -->
+            <div class="p-4 sm:p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/80">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-table-list text-cyan-400 text-xl"></i>
+                    <h3 class="text-lg font-bold text-white">Metric Prefix Reference Chart</h3>
+                </div>
+                <button onclick="toggleReferenceModal()" class="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-slate-700">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <!-- Modal Body Table -->
+            <div class="p-4 sm:p-6 overflow-y-auto space-y-4">
+                <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                    <thead>
+                        <tr class="border-b border-slate-700 text-cyan-400 font-mono">
+                            <th class="p-2">Prefix</th>
+                            <th class="p-2">Symbol</th>
+                            <th class="p-2">Power of 10</th>
+                            <th class="p-2">Decimal Equivalent</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700/50 font-mono text-slate-300">
+                        <tr><td class="p-2 font-sans font-medium text-white">Tera</td><td class="p-2 text-cyan-400">T</td><td class="p-2">10¹²</td><td class="p-2">1,000,000,000,000</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">Giga</td><td class="p-2 text-cyan-400">G</td><td class="p-2">10⁹</td><td class="p-2">1,000,000,000</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">Mega</td><td class="p-2 text-cyan-400">M</td><td class="p-2">10⁶</td><td class="p-2">1,000,000</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">kilo</td><td class="p-2 text-cyan-400">k</td><td class="p-2">10³</td><td class="p-2">1,000</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">hecto</td><td class="p-2 text-cyan-400">h</td><td class="p-2">10²</td><td class="p-2">100</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">deca</td><td class="p-2 text-cyan-400">da</td><td class="p-2">10¹</td><td class="p-2">10</td></tr>
+                        <tr class="bg-cyan-950/30 font-semibold"><td class="p-2 font-sans text-cyan-300">(Base Unit)</td><td class="p-2 text-cyan-300">-</td><td class="p-2 text-cyan-300">10⁰</td><td class="p-2 text-cyan-300">1</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">deci</td><td class="p-2 text-cyan-400">d</td><td class="p-2">10⁻¹</td><td class="p-2">0.1</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">centi</td><td class="p-2 text-cyan-400">c</td><td class="p-2">10⁻²</td><td class="p-2">0.01</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">milli</td><td class="p-2 text-cyan-400">m</td><td class="p-2">10⁻³</td><td class="p-2">0.001</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">micro</td><td class="p-2 text-cyan-400">μ</td><td class="p-2">10⁻⁶</td><td class="p-2">0.000 001</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">nano</td><td class="p-2 text-cyan-400">n</td><td class="p-2">10⁻⁹</td><td class="p-2">0.000 000 001</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">pico</td><td class="p-2 text-cyan-400">p</td><td class="p-2">10⁻¹²</td><td class="p-2">0.000 000 000 001</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-slate-700 bg-slate-900/60 text-right">
+                <button onclick="toggleReferenceModal()" class="px-5 py-2 bg-slate-700 hover:bg-slate-600 text-white font-medium text-xs rounded-xl transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic Script -->
+    <script>
+        // Data Store: Comprehensive Question Bank
+        const QUESTION_BANK = [
+            // Standard / Basic
+            {
+                id: 1,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix',
+                question: "Convert 4.7 nF (nanofarads) into picofarads (pF).",
+                targetUnit: "pF",
+                correctValue: 4700,
+                options: ["47 pF", "470 pF", "4,700 pF", "47,000 pF"],
+                explanation: "1 nF = 1,000 pF (10⁻⁹ F = 10³ × 10⁻¹² F). Therefore, 4.7 × 1,000 = 4,700 pF."
+            },
+            {
+                id: 2,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix',
+                question: "Express 3.2 GHz (gigahertz) in megahertz (MHz).",
+                targetUnit: "MHz",
+                correctValue: 3200,
+                options: ["32 MHz", "320 MHz", "3,200 MHz", "32,000 MHz"],
+                explanation: "1 GHz = 1,000 MHz (10⁹ Hz vs 10⁶ Hz). Thus, 3.2 × 1,000 = 3,200 MHz."
+            },
+            {
+                id: 3,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix',
+                question: "An electric current is measured at 250 μA (microamperes). Convert this to milliamperes (mA).",
+                targetUnit: "mA",
+                correctValue: 0.25,
+                options: ["0.025 mA", "0.25 mA", "2.5 mA", "25 mA"],
+                explanation: "1 mA = 1,000 μA (10⁻³ A vs 10⁻⁶ A). Divide 250 by 1,000 = 0.25 mA."
+            },
+            {
+                id: 4,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix',
+                question: "Express a wavelength of 500 nm (nanometers) in micrometers (μm).",
+                targetUnit: "μm",
+                correctValue: 0.5,
+                options: ["0.05 μm", "0.5 μm", "5.0 μm", "50 μm"],
+                explanation: "1 μm = 1,000 nm (10⁻⁶ m vs 10⁻⁹ m). Divide 500 by 1,000 = 0.5 μm."
+            },
+            
+            // Extreme Scale
+            {
+                id: 5,
+                category: 'extreme',
+                categoryLabel: 'Extreme Scale',
+                question: "A high-performance hard drive stores 2.5 TB (terabytes). How many megabytes (MB) is this?",
+                targetUnit: "MB",
+                correctValue: 2500000,
+                options: ["25,000 MB", "250,000 MB", "2,500,000 MB", "25,000,000 MB"],
+                explanation: "1 TB = 10¹² bytes, 1 MB = 10⁶ bytes. The ratio is 10⁶. Thus, 2.5 × 1,000,000 = 2,500,000 MB (or 2.5 × 10⁶ MB)."
+            },
+            {
+                id: 6,
+                category: 'extreme',
+                categoryLabel: 'Extreme Scale',
+                question: "Convert 0.000085 seconds into picoseconds (ps).",
+                targetUnit: "ps",
+                correctValue: 85000000,
+                options: ["8.5 × 10⁵ ps", "8.5 × 10⁶ ps", "8.5 × 10⁷ ps", "8.5 × 10⁸ ps"],
+                explanation: "0.000085 s = 8.5 × 10⁻⁵ s. To convert to ps (10⁻¹² s): 8.5 × 10⁻⁵ / 10⁻¹² = 8.5 × 10⁷ ps (85,000,000 ps)."
+            },
+
+            // Derived Units & Physics
+            {
+                id: 7,
+                category: 'derived',
+                categoryLabel: 'Derived Units',
+                question: "A resistor has a resistance of 0.047 MΩ (megohms). Express this value in kilohms (kΩ).",
+                targetUnit: "kΩ",
+                correctValue: 47,
+                options: ["4.7 kΩ", "47 kΩ", "470 kΩ", "4,700 kΩ"],
+                explanation: "1 MΩ = 1,000 kΩ (10⁶ Ω vs 10³ Ω). Multiply 0.047 × 1,000 = 47 kΩ."
+            },
+            {
+                id: 8,
+                category: 'derived',
+                categoryLabel: 'Derived Units',
+                question: "A laser pulse delivers 8.0 MJ of energy over a duration of 4.0 ns. What is the average power delivered in gigawatts (GW)?",
+                targetUnit: "GW",
+                correctValue: 2000,
+                options: ["20 GW", "200 GW", "2,000 GW", "20,000 GW"],
+                explanation: "Power = Energy / Time = 8.0 MJ / 4.0 ns = (8.0 × 10⁶ J) / (4.0 × 10⁻⁹ s) = 2.0 × 10¹⁵ Watts = 2,000 GW (2.0 × 10³ GW)."
+            },
+            {
+                id: 9,
+                category: 'derived',
+                categoryLabel: 'Derived Units',
+                question: "A substance has a density of 1.2 mg/μL (milligrams per microliter). What is its density in grams per liter (g/L)?",
+                targetUnit: "g/L",
+                correctValue: 1200,
+                options: ["1.2 g/L", "12 g/L", "120 g/L", "1,200 g/L"],
+                explanation: "1 mg/μL = (10⁻³ g) / (10⁻⁶ L) = 10³ g/L = 1,000 g/L. Therefore, 1.2 × 1,000 = 1,200 g/L."
+            },
+
+            // Area & Volume
+            {
+                id: 10,
+                category: 'area_vol',
+                categoryLabel: 'Area & Volume',
+                question: "The surface area of a microchip sensor is 0.25 mm². What is this area in square micrometers (μm²)?",
+                targetUnit: "μm²",
+                correctValue: 250000,
+                options: ["2,500 μm²", "25,000 μm²", "250,000 μm²", "2,500,000 μm²"],
+                explanation: "1 mm = 1,000 μm, so 1 mm² = (1,000 μm)² = 1,000,000 μm² (10⁶). Multiply 0.25 × 1,000,000 = 250,000 μm²."
+            },
+            {
+                id: 11,
+                category: 'area_vol',
+                categoryLabel: 'Area & Volume',
+                question: "Convert a volume of 1.5 km³ into cubic millimeters (mm³).",
+                targetUnit: "mm³",
+                correctValue: 1.5e18,
+                options: ["1.5 × 10¹² mm³", "1.5 × 10¹⁵ mm³", "1.5 × 10¹⁸ mm³", "1.5 × 10²¹ mm³"],
+                explanation: "1 km = 10⁶ mm. Cubic factor: (10⁶)³ = 10¹⁸. Therefore, 1.5 km³ = 1.5 × 10¹⁸ mm³."
+            }
+        ];
+
+        // Application State
+        let currentTopic = 'all';
+        let currentInputMode = 'mc'; // 'mc' or 'direct'
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let streak = 0;
+        let answered = false;
+        let attemptsThisQuestion = 0;
+
+        // Dynamic Elements
+        const questionText = document.getElementById('question-text');
+        const questionCategoryTag = document.getElementById('question-category-tag');
+        const questionCount = document.getElementById('question-count');
+        const progressBar = document.getElementById('progress-bar');
+        const answerContainer = document.getElementById('answer-container');
+        const feedbackCard = document.getElementById('feedback-card');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const scoreDisplay = document.getElementById('score-display');
+        const streakDisplay = document.getElementById('streak-display');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Initialization
+        window.onload = () => {
+            filterQuestions();
+            loadQuestion();
+        };
+
+        // Filter question pool based on topic
+        function filterQuestions() {
+            if (currentTopic === 'all') {
+                currentQuestions = [...QUESTION_BANK];
+            } else {
+                currentQuestions = QUESTION_BANK.filter(q => q.category === currentTopic);
+            }
+            // Shuffle array
+            currentQuestions.sort(() => Math.random() - 0.5);
+            currentIndex = 0;
+        }
+
+        // Set active topic
+        function setTopic(topic) {
+            currentTopic = topic;
+            document.querySelectorAll('.topic-btn').forEach(btn => {
+                if (btn.dataset.topic === topic) {
+                    btn.classList.add('bg-cyan-950/60', 'border-cyan-500', 'text-cyan-300');
+                    btn.classList.remove('border-slate-700/60', 'text-slate-300');
+                } else {
+                    btn.classList.remove('bg-cyan-950/60', 'border-cyan-500', 'text-cyan-300');
+                    btn.classList.add('border-slate-700/60', 'text-slate-300');
+                }
+            });
+            filterQuestions();
+            loadQuestion();
+        }
+
+        // Set active input mode (Multiple Choice vs Direct Calculation)
+        function setInputMode(mode) {
+            currentInputMode = mode;
+            const mcBtn = document.getElementById('mode-mc');
+            const directBtn = document.getElementById('mode-direct');
+            
+            if (mode === 'mc') {
+                mcBtn.classList.add('bg-cyan-600', 'text-white', 'shadow');
+                mcBtn.classList.remove('text-slate-400');
+                directBtn.classList.remove('bg-cyan-600', 'text-white', 'shadow');
+                directBtn.classList.add('text-slate-400');
+            } else {
+                directBtn.classList.add('bg-cyan-600', 'text-white', 'shadow');
+                directBtn.classList.remove('text-slate-400');
+                mcBtn.classList.remove('bg-cyan-600', 'text-white', 'shadow');
+                mcBtn.classList.add('text-slate-400');
+            }
+
+            renderAnswerInterface();
+        }
+
+        // Load Question UI
+        function loadQuestion() {
+            if (currentQuestions.length === 0) return;
+
+            answered = false;
+            attemptsThisQuestion = 0;
+            feedbackCard.classList.add('hidden');
+            
+            const q = currentQuestions[currentIndex];
+            questionText.innerText = q.question;
+            questionCategoryTag.innerText = q.categoryLabel;
+            questionCount.innerText = `Problem ${currentIndex + 1} of ${currentQuestions.length}`;
+            
+            const progressPercent = ((currentIndex) / currentQuestions.length) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+
+            renderAnswerInterface();
+        }
+
+        // Render input methods (Multiple Choice / Direct Form)
+        function renderAnswerInterface() {
+            const q = currentQuestions[currentIndex];
+            answerContainer.innerHTML = '';
+
+            if (currentInputMode === 'mc') {
+                const grid = document.createElement('div');
+                grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3';
+
+                q.options.forEach((opt) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'opt-btn p-4 rounded-xl border border-slate-700 bg-slate-900/50 hover:bg-slate-700/60 hover:border-cyan-500/50 text-slate-200 font-mono text-sm sm:text-base text-left transition flex justify-between items-center group';
+                    btn.innerHTML = `
+                        <span>${opt}</span>
+                        <i class="fa-regular fa-circle text-slate-600 group-hover:text-cyan-400 transition"></i>
+                    `;
+                    btn.onclick = () => checkMultipleChoice(opt, q, btn);
+                    grid.appendChild(btn);
+                });
+
+                answerContainer.appendChild(grid);
+            } else {
+                // Direct Input Box
+                const form = document.createElement('form');
+                form.className = 'space-y-4';
+                form.onsubmit = (e) => {
+                    e.preventDefault();
+                    const inputVal = document.getElementById('direct-input').value;
+                    checkDirectInput(inputVal, q);
+                };
+
+                form.innerHTML = `
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-1">
+                            <input type="text" id="direct-input" placeholder="e.g. 4700 or 4.7e3" 
+                                class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4 py-3 text-white font-mono text-base placeholder-slate-600 outline-none transition">
+                            <span class="absolute right-3 top-3.5 text-xs font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">${q.targetUnit}</span>
+                        </div>
+                        <button type="submit" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 shadow-lg shadow-cyan-600/20">
+                            <i class="fa-solid fa-check"></i>
+                            <span>Check Answer</span>
+                        </button>
+                    </div>
+                `;
+
+                answerContainer.appendChild(form);
+            }
+        }
+
+        // Trigger confetti animation for reward
+        function triggerConfettiBurst() {
+            if (typeof confetti === 'function') {
+                // Burst 1
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+                // Burst 2 (side angles)
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 50,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 }
+                    });
+                    confetti({
+                        particleCount: 50,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 }
+                    });
+                }, 150);
+            }
+        }
+
+        // Validate multiple choice selections
+        function checkMultipleChoice(selectedOption, question, btnElement) {
+            if (answered) return;
+            attemptsThisQuestion++;
+
+            const numericPart = parseScientificInput(selectedOption.replace(/[^0-9.eE-]/g, ''));
+            const isCorrect = Math.abs(numericPart - question.correctValue) / Math.max(Math.abs(question.correctValue), 1e-9) < 0.02;
+
+            if (isCorrect) {
+                answered = true;
+                triggerConfettiBurst();
+            }
+
+            highlightAnswer(isCorrect, question, btnElement);
+        }
+
+        // Validate direct text inputs
+        function checkDirectInput(inputValue, question) {
+            if (answered) return;
+            
+            const parsedVal = parseScientificInput(inputValue);
+            if (isNaN(parsedVal)) {
+                showFeedback(false, "Invalid format! Enter a valid number or scientific format like 4.7e3.");
+                return;
+            }
+
+            attemptsThisQuestion++;
+            const isCorrect = Math.abs(parsedVal - question.correctValue) / Math.max(Math.abs(question.correctValue), 1e-9) < 0.02;
+            
+            if (isCorrect) {
+                answered = true;
+                triggerConfettiBurst();
+            }
+
+            highlightAnswer(isCorrect, question);
+        }
+
+        // Show visual state updates
+        function highlightAnswer(isCorrect, question, btnElement = null) {
+            if (isCorrect) {
+                // Award score based on first try bonus
+                const scoreAdd = attemptsThisQuestion === 1 ? 100 : 50;
+                score += scoreAdd;
+                streak += 1;
+                scoreDisplay.innerText = score;
+                streakDisplay.innerText = streak;
+                
+                if (btnElement) {
+                    btnElement.classList.remove('bg-slate-900/50', 'hover:bg-slate-700/60');
+                    btnElement.classList.add('bg-emerald-950/80', 'border-emerald-500', 'text-emerald-300');
+                    btnElement.querySelector('i').className = 'fa-solid fa-circle-check text-emerald-400';
+                }
+                
+                showFeedback(true, question.explanation);
+            } else {
+                streak = 0;
+                streakDisplay.innerText = streak;
+
+                if (btnElement) {
+                    btnElement.classList.remove('bg-slate-900/50');
+                    btnElement.classList.add('bg-rose-950/80', 'border-rose-500', 'text-rose-300');
+                    btnElement.querySelector('i').className = 'fa-solid fa-circle-xmark text-rose-400';
+                    // Disable wrong option to narrow down choice in MC mode
+                    btnElement.disabled = true;
+                    btnElement.classList.add('opacity-60', 'cursor-not-allowed');
+                }
+
+                showFeedback(false, `Not quite! Attempt #${attemptsThisQuestion}. Review prefix conversion powers of 10 and try again!`, question.correctValue, question.targetUnit);
+            }
+        }
+
+        // Render detailed solution explanation panel
+        function showFeedback(isCorrect, explanationText, correctVal = null, unit = '') {
+            feedbackCard.classList.remove('hidden', 'bg-emerald-950/40', 'border-emerald-700/50', 'bg-rose-950/40', 'border-rose-700/50');
+
+            if (isCorrect) {
+                feedbackCard.classList.add('bg-emerald-950/40', 'border-emerald-700/50');
+                feedbackTitle.className = "flex items-center space-x-2 font-bold text-sm text-emerald-400";
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-lg"></i><span>Correct Answer! 🎉</span>`;
+            } else {
+                feedbackCard.classList.add('bg-rose-950/40', 'border-rose-700/50');
+                feedbackTitle.className = "flex items-center space-x-2 font-bold text-sm text-rose-400";
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-lg"></i><span>Try Again!</span>`;
+            }
+
+            feedbackText.innerText = explanationText;
+        }
+
+        // Progression controls
+        function nextQuestion() {
+            if (currentIndex < currentQuestions.length - 1) {
+                currentIndex++;
+                loadQuestion();
+            } else {
+                // Completed set
+                progressBar.style.width = '100%';
+                questionText.innerText = "🎉 Category Completed!";
+                answerContainer.innerHTML = `
+                    <div class="p-6 bg-slate-900/60 rounded-xl border border-slate-700 text-center space-y-4">
+                        <p class="text-slate-300">You completed all questions in this topic!</p>
+                        <button onclick="filterQuestions(); loadQuestion();" class="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-semibold text-sm transition">
+                            Restart Category
+                        </button>
+                    </div>
+                `;
+                feedbackCard.classList.add('hidden');
+            }
+        }
+
+        function skipQuestion() {
+            nextQuestion();
+        }
+
+        // Modal Controls
+        function toggleReferenceModal() {
+            const modal = document.getElementById('reference-modal');
+            modal.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
