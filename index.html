@@ -63,8 +63,8 @@
                     <i class="fa-solid fa-flask-vial text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg leading-tight tracking-wide text-white">UnitLab <span class="text-cyan-400 font-mono text-sm font-normal">v2.0</span></h1>
-                    <p class="text-xs text-slate-400">Metric Prefix & Derived Unit Mastery</p>
+                    <h1 class="font-bold text-lg leading-tight tracking-wide text-white">UnitLab <span class="text-cyan-400 font-mono text-sm font-normal">v2.5</span></h1>
+                    <p class="text-xs text-slate-400">Metric Prefix & Intermediate Conversion Mastery</p>
                 </div>
             </div>
 
@@ -105,25 +105,25 @@
                 <div>
                     <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Topic Focus</label>
                     <div class="grid grid-cols-1 gap-2" id="topic-selector">
-                        <button onclick="setTopic('all')" data-topic="all" class="topic-btn active flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left">
-                            <span class="flex items-center"><i class="fa-solid fa-globe w-6 text-cyan-400"></i> Mixed Practice</span>
-                            <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">All</span>
-                        </button>
-                        <button onclick="setTopic('standard')" data-topic="standard" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left">
+                        <button onclick="setTopic('standard')" data-topic="standard" class="topic-btn active flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left bg-cyan-950/60 border-cyan-500 text-cyan-300">
                             <span class="flex items-center"><i class="fa-solid fa-ruler-horizontal w-6 text-emerald-400"></i> Basic Prefixes</span>
-                            <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">m, k, μ, M...</span>
+                            <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">20 Problems</span>
                         </button>
-                        <button onclick="setTopic('extreme')" data-topic="extreme" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left">
+                        <button onclick="setTopic('extreme')" data-topic="extreme" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left border-slate-700/60 text-slate-300">
                             <span class="flex items-center"><i class="fa-solid fa-microscope w-6 text-purple-400"></i> Extreme Scale</span>
-                            <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">pico, tera, giga</span>
+                            <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">pico, tera...</span>
                         </button>
-                        <button onclick="setTopic('derived')" data-topic="derived" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left">
+                        <button onclick="setTopic('derived')" data-topic="derived" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left border-slate-700/60 text-slate-300">
                             <span class="flex items-center"><i class="fa-solid fa-bolt w-6 text-amber-400"></i> Derived Units</span>
                             <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">Farads, Ohms, Hz</span>
                         </button>
-                        <button onclick="setTopic('area_vol')" data-topic="area_vol" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left">
+                        <button onclick="setTopic('area_vol')" data-topic="area_vol" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left border-slate-700/60 text-slate-300">
                             <span class="flex items-center"><i class="fa-solid fa-cube w-6 text-rose-400"></i> Area & Volume</span>
                             <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">mm², cm³, m³</span>
+                        </button>
+                        <button onclick="setTopic('all')" data-topic="all" class="topic-btn flex items-center justify-between p-2.5 rounded-xl border text-sm font-medium transition text-left border-slate-700/60 text-slate-300">
+                            <span class="flex items-center"><i class="fa-solid fa-globe w-6 text-cyan-400"></i> Mixed Practice</span>
+                            <span class="text-xs bg-slate-700 px-2 py-0.5 rounded-md text-slate-300">All Topics</span>
                         </button>
                     </div>
                 </div>
@@ -132,8 +132,8 @@
                 <div class="pt-2 border-t border-slate-700/50">
                     <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Input Format</label>
                     <div class="grid grid-cols-2 gap-2 bg-slate-900/60 p-1 rounded-xl border border-slate-700/50">
-                        <button id="mode-mc" onclick="setInputMode('mc')" class="py-1.5 text-xs font-medium rounded-lg transition text-slate-300 active-mode shadow">Multiple Choice</button>
-                        <button id="mode-direct" onclick="setInputMode('direct')" class="py-1.5 text-xs font-medium rounded-lg transition text-slate-400">Direct Number</button>
+                        <button id="mode-direct" onclick="setInputMode('direct')" class="py-1.5 text-xs font-medium rounded-lg transition text-white bg-cyan-600 shadow">Direct Input (2-Step)</button>
+                        <button id="mode-mc" onclick="setInputMode('mc')" class="py-1.5 text-xs font-medium rounded-lg transition text-slate-400">Multiple Choice</button>
                     </div>
                 </div>
             </div>
@@ -145,10 +145,6 @@
                     <button onclick="toggleReferenceModal()" class="text-xs text-cyan-400 hover:underline">Full Chart</button>
                 </div>
                 <div class="grid grid-cols-2 gap-2 text-xs font-mono">
-                    <div class="p-2 bg-slate-900/50 rounded-lg flex justify-between border border-slate-700/40">
-                        <span class="text-cyan-300">Tera (T)</span>
-                        <span class="text-slate-400">10¹²</span>
-                    </div>
                     <div class="p-2 bg-slate-900/50 rounded-lg flex justify-between border border-slate-700/40">
                         <span class="text-cyan-300">Giga (G)</span>
                         <span class="text-slate-400">10⁹</span>
@@ -195,7 +191,7 @@
                     <!-- Progress Bar & Top Meta -->
                     <div>
                         <div class="flex justify-between items-center text-xs font-semibold text-slate-400 mb-2">
-                            <span id="question-category-tag" class="px-2.5 py-1 bg-cyan-950 text-cyan-400 rounded-full border border-cyan-800/50 font-mono">
+                            <span id="question-category-tag" class="px-2.5 py-1 bg-cyan-950 text-cyan-400 rounded-full border border-cyan-800/50 font-mono uppercase">
                                 CATEGORY
                             </span>
                             <span id="question-count">Question 1</span>
@@ -206,8 +202,8 @@
                     </div>
 
                     <!-- Problem Display Area -->
-                    <div class="py-4 border-y border-slate-700/40">
-                        <p class="text-xs font-mono uppercase tracking-widest text-slate-400 mb-1">Convert the value:</p>
+                    <div class="py-4 border-y border-slate-700/40 space-y-2">
+                        <p class="text-xs font-mono uppercase tracking-widest text-slate-400">Convert the value:</p>
                         <h3 id="question-text" class="text-xl sm:text-2xl font-bold text-white tracking-wide leading-relaxed">
                             Loading problem...
                         </h3>
@@ -215,10 +211,10 @@
 
                     <!-- Answer Form Container -->
                     <div id="answer-container" class="space-y-4">
-                        <!-- Dynamic Multiple Choice or Direct Input will render here -->
+                        <!-- Dynamic Input / 2-Step Form will render here -->
                     </div>
 
-                    <!-- Explanation / Feedback Banner (Hidden initially) -->
+                    <!-- Explanation / Feedback Banner -->
                     <div id="feedback-card" class="hidden p-4 rounded-xl border transition-all duration-300 space-y-2">
                         <div class="flex items-center space-x-2 font-bold text-sm" id="feedback-title">
                             <!-- JS populated header -->
@@ -233,7 +229,7 @@
                 <div class="pt-6 mt-6 border-t border-slate-700/40 flex items-center justify-between relative z-10">
                     <button id="prev-btn" onclick="prevQuestion()" class="px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200 hover:bg-slate-700/50 text-sm font-medium transition flex items-center space-x-2">
                         <i class="fa-solid fa-arrow-left"></i>
-                        <span>Previous Problem</span>
+                        <span>Previous</span>
                     </button>
 
                     <div class="flex items-center space-x-2">
@@ -250,11 +246,11 @@
                 </div>
             </div>
 
-            <!-- Scientific Notation Helper / Converter Tool -->
+            <!-- Scientific Notation Helper / Formatter Tip -->
             <div class="bg-slate-800/40 rounded-2xl p-4 border border-slate-700/50 text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="flex items-center space-x-2">
                     <i class="fa-solid fa-lightbulb text-amber-400 text-base"></i>
-                    <span><strong>Formatting Tip:</strong> You can input decimal numbers (e.g. <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">0.0047</code>) or scientific exponent notation (e.g. <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">4.7e-3</code> or <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">4.7*10^-3</code>).</span>
+                    <span><strong>Formatting Tip:</strong> Do not use commas in numbers (e.g., use <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">4700</code> or <code class="text-cyan-300 bg-slate-900 px-1 py-0.5 rounded">4.7e3</code> instead of 4,700).</span>
                 </div>
             </div>
 
@@ -283,23 +279,23 @@
                             <th class="p-2">Prefix</th>
                             <th class="p-2">Symbol</th>
                             <th class="p-2">Power of 10</th>
-                            <th class="p-2">Decimal Equivalent</th>
+                            <th class="p-2">Standard Form</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-700/50 font-mono text-slate-300">
-                        <tr><td class="p-2 font-sans font-medium text-white">Tera</td><td class="p-2 text-cyan-400">T</td><td class="p-2">10¹²</td><td class="p-2">1,000,000,000,000</td></tr>
-                        <tr><td class="p-2 font-sans font-medium text-white">Giga</td><td class="p-2 text-cyan-400">G</td><td class="p-2">10⁹</td><td class="p-2">1,000,000,000</td></tr>
-                        <tr><td class="p-2 font-sans font-medium text-white">Mega</td><td class="p-2 text-cyan-400">M</td><td class="p-2">10⁶</td><td class="p-2">1,000,000</td></tr>
-                        <tr><td class="p-2 font-sans font-medium text-white">kilo</td><td class="p-2 text-cyan-400">k</td><td class="p-2">10³</td><td class="p-2">1,000</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">Tera</td><td class="p-2 text-cyan-400">T</td><td class="p-2">10¹²</td><td class="p-2">1000000000000</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">Giga</td><td class="p-2 text-cyan-400">G</td><td class="p-2">10⁹</td><td class="p-2">1000000000</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">Mega</td><td class="p-2 text-cyan-400">M</td><td class="p-2">10⁶</td><td class="p-2">1000000</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">kilo</td><td class="p-2 text-cyan-400">k</td><td class="p-2">10³</td><td class="p-2">1000</td></tr>
                         <tr><td class="p-2 font-sans font-medium text-white">hecto</td><td class="p-2 text-cyan-400">h</td><td class="p-2">10²</td><td class="p-2">100</td></tr>
                         <tr><td class="p-2 font-sans font-medium text-white">deca</td><td class="p-2 text-cyan-400">da</td><td class="p-2">10¹</td><td class="p-2">10</td></tr>
-                        <tr class="bg-cyan-950/30 font-semibold"><td class="p-2 font-sans text-cyan-300">(Base Unit)</td><td class="p-2 text-cyan-300">-</td><td class="p-2 text-cyan-300">10⁰</td><td class="p-2 text-cyan-300">1</td></tr>
+                        <tr class="bg-cyan-950/30 font-semibold"><td class="p-2 font-sans text-cyan-300">(Main / Base Unit)</td><td class="p-2 text-cyan-300">-</td><td class="p-2 text-cyan-300">10⁰</td><td class="p-2 text-cyan-300">1</td></tr>
                         <tr><td class="p-2 font-sans font-medium text-white">deci</td><td class="p-2 text-cyan-400">d</td><td class="p-2">10⁻¹</td><td class="p-2">0.1</td></tr>
                         <tr><td class="p-2 font-sans font-medium text-white">centi</td><td class="p-2 text-cyan-400">c</td><td class="p-2">10⁻²</td><td class="p-2">0.01</td></tr>
                         <tr><td class="p-2 font-sans font-medium text-white">milli</td><td class="p-2 text-cyan-400">m</td><td class="p-2">10⁻³</td><td class="p-2">0.001</td></tr>
-                        <tr><td class="p-2 font-sans font-medium text-white">micro</td><td class="p-2 text-cyan-400">μ</td><td class="p-2">10⁻⁶</td><td class="p-2">0.000 001</td></tr>
-                        <tr><td class="p-2 font-sans font-medium text-white">nano</td><td class="p-2 text-cyan-400">n</td><td class="p-2">10⁻⁹</td><td class="p-2">0.000 000 001</td></tr>
-                        <tr><td class="p-2 font-sans font-medium text-white">pico</td><td class="p-2 text-cyan-400">p</td><td class="p-2">10⁻¹²</td><td class="p-2">0.000 000 000 001</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">micro</td><td class="p-2 text-cyan-400">μ</td><td class="p-2">10⁻⁶</td><td class="p-2">0.000001</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">nano</td><td class="p-2 text-cyan-400">n</td><td class="p-2">10⁻⁹</td><td class="p-2">0.000000001</td></tr>
+                        <tr><td class="p-2 font-sans font-medium text-white">pico</td><td class="p-2 text-cyan-400">p</td><td class="p-2">10⁻¹²</td><td class="p-2">0.000000000001</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -312,136 +308,350 @@
 
     <!-- Application Logic Script -->
     <script>
-        // Data Store: Comprehensive Question Bank
+        // Data Store: Question Bank
+        // "standard" category contains EXACTLY 20 non-adjacent prefix conversion problems with intermediate base unit values.
         const QUESTION_BANK = [
-            // Standard / Basic
+            // 20 BASIC PREFIX PROBLEMS (All non-adjacent prefix combinations, no comma thousands formatting)
             {
                 id: 1,
                 category: 'standard',
-                categoryLabel: 'Basic Prefix',
-                question: "Convert 4.7 nF (nanofarads) into picofarads (pF).",
-                targetUnit: "pF",
-                correctValue: 4700,
-                options: ["47 pF", "470 pF", "4,700 pF", "47,000 pF"],
-                explanation: "1 nF = 1,000 pF (10⁻⁹ F = 10³ × 10⁻¹² F). Therefore, 4.7 × 1,000 = 4,700 pF."
+                categoryLabel: 'Basic Prefix (1/20)',
+                question: "Convert 4.5 μF (microfarads) into kilofarads (kF).",
+                baseUnit: "F",
+                baseValue: 0.0000045, // 4.5e-6
+                targetUnit: "kF",
+                correctValue: 0.0000000045, // 4.5e-9
+                isNonAdjacent: true,
+                options: ["0.0000000045 kF", "0.0000045 kF", "0.0045 kF", "4.5 kF"],
+                explanation: "Step 1: 4.5 μF = 4.5 × 10⁻⁶ F = 0.0000045 F.\nStep 2: Convert to kF by dividing by 10³: 0.0000045 F = 0.0000000045 kF (or 4.5e-9 kF)."
             },
             {
                 id: 2,
                 category: 'standard',
-                categoryLabel: 'Basic Prefix',
-                question: "Express 3.2 GHz (gigahertz) in megahertz (MHz).",
-                targetUnit: "MHz",
-                correctValue: 3200,
-                options: ["32 MHz", "320 MHz", "3,200 MHz", "32,000 MHz"],
-                explanation: "1 GHz = 1,000 MHz (10⁹ Hz vs 10⁶ Hz). Thus, 3.2 × 1,000 = 3,200 MHz."
+                categoryLabel: 'Basic Prefix (2/20)',
+                question: "Convert 850 nm (nanometers) into kilometers (km).",
+                baseUnit: "m",
+                baseValue: 0.00000085, // 8.5e-7
+                targetUnit: "km",
+                correctValue: 0.00000000085, // 8.5e-10
+                isNonAdjacent: true,
+                options: ["0.00000000085 km", "0.00000085 km", "0.00085 km", "0.85 km"],
+                explanation: "Step 1: 850 nm = 850 × 10⁻⁹ m = 0.00000085 m.\nStep 2: Convert to km by dividing by 10³: 0.00000085 / 1000 = 0.00000000085 km (or 8.5e-10 km)."
             },
             {
                 id: 3,
                 category: 'standard',
-                categoryLabel: 'Basic Prefix',
-                question: "An electric current is measured at 250 μA (microamperes). Convert this to milliamperes (mA).",
-                targetUnit: "mA",
-                correctValue: 0.25,
-                options: ["0.025 mA", "0.25 mA", "2.5 mA", "25 mA"],
-                explanation: "1 mA = 1,000 μA (10⁻³ A vs 10⁻⁶ A). Divide 250 by 1,000 = 0.25 mA."
+                categoryLabel: 'Basic Prefix (3/20)',
+                question: "Express 3.2 MW (megawatts) in milliwatts (mW).",
+                baseUnit: "W",
+                baseValue: 3200000, // 3.2e6
+                targetUnit: "mW",
+                correctValue: 3200000000, // 3.2e9
+                isNonAdjacent: true,
+                options: ["3200000 mW", "320000000 mW", "3200000000 mW", "32000000000 mW"],
+                explanation: "Step 1: 3.2 MW = 3.2 × 10⁶ W = 3200000 W.\nStep 2: Convert to mW by multiplying by 10³: 3200000 W × 1000 = 3200000000 mW (or 3.2e9 mW)."
             },
             {
                 id: 4,
                 category: 'standard',
-                categoryLabel: 'Basic Prefix',
-                question: "Express a wavelength of 500 nm (nanometers) in micrometers (μm).",
-                targetUnit: "μm",
-                correctValue: 0.5,
-                options: ["0.05 μm", "0.5 μm", "5.0 μm", "50 μm"],
-                explanation: "1 μm = 1,000 nm (10⁻⁶ m vs 10⁻⁹ m). Divide 500 by 1,000 = 0.5 μm."
+                categoryLabel: 'Basic Prefix (4/20)',
+                question: "Convert 600 pF (picofarads) into kilofarads (kF).",
+                baseUnit: "F",
+                baseValue: 0.0000000006, // 6e-10
+                targetUnit: "kF",
+                correctValue: 0.0000000000006, // 6e-13
+                isNonAdjacent: true,
+                options: ["6e-13 kF", "6e-10 kF", "6e-7 kF", "0.0006 kF"],
+                explanation: "Step 1: 600 pF = 600 × 10⁻¹² F = 0.0000000006 F.\nStep 2: Convert to kF by dividing by 10³: 0.0000000006 / 1000 = 6e-13 kF."
             },
-            
-            // Extreme Scale
             {
                 id: 5,
-                category: 'extreme',
-                categoryLabel: 'Extreme Scale',
-                question: "A high-performance hard drive stores 2.5 TB (terabytes). How many megabytes (MB) is this?",
-                targetUnit: "MB",
-                correctValue: 2500000,
-                options: ["25,000 MB", "250,000 MB", "2,500,000 MB", "25,000,000 MB"],
-                explanation: "1 TB = 10¹² bytes, 1 MB = 10⁶ bytes. The ratio is 10⁶. Thus, 2.5 × 1,000,000 = 2,500,000 MB (or 2.5 × 10⁶ MB)."
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (5/20)',
+                question: "Convert 0.025 GHz (gigahertz) into kilohertz (kHz).",
+                baseUnit: "Hz",
+                baseValue: 25000000, // 2.5e7
+                targetUnit: "kHz",
+                correctValue: 25000, // 25000
+                isNonAdjacent: true,
+                options: ["250 kHz", "2500 kHz", "25000 kHz", "250000 kHz"],
+                explanation: "Step 1: 0.025 GHz = 0.025 × 10⁹ Hz = 25000000 Hz.\nStep 2: Convert to kHz by dividing by 10³: 25000000 / 1000 = 25000 kHz."
             },
             {
                 id: 6,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (6/20)',
+                question: "Convert 75000 μV (microvolts) into megavolts (MV).",
+                baseUnit: "V",
+                baseValue: 0.075,
+                targetUnit: "MV",
+                correctValue: 0.000000075, // 7.5e-8
+                isNonAdjacent: true,
+                options: ["0.000000075 MV", "0.0000075 MV", "0.00075 MV", "0.075 MV"],
+                explanation: "Step 1: 75000 μV = 75000 × 10⁻⁶ V = 0.075 V.\nStep 2: Convert to MV by dividing by 10⁶: 0.075 / 1000000 = 0.000000075 MV (or 7.5e-8 MV)."
+            },
+            {
+                id: 7,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (7/20)',
+                question: "Convert 12.5 mg (milligrams) into megagrams (Mg / metric tons).",
+                baseUnit: "g",
+                baseValue: 0.0125,
+                targetUnit: "Mg",
+                correctValue: 0.0000000125, // 1.25e-8
+                isNonAdjacent: true,
+                options: ["1.25e-8 Mg", "1.25e-6 Mg", "0.0000125 Mg", "0.0125 Mg"],
+                explanation: "Step 1: 12.5 mg = 12.5 × 10⁻³ g = 0.0125 g.\nStep 2: Convert to Mg by dividing by 10⁶: 0.0125 / 1000000 = 0.0000000125 Mg."
+            },
+            {
+                id: 8,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (8/20)',
+                question: "Convert 0.004 MJ (megajoules) into millijoules (mJ).",
+                baseUnit: "J",
+                baseValue: 4000,
+                targetUnit: "mJ",
+                correctValue: 4000000,
+                isNonAdjacent: true,
+                options: ["40000 mJ", "400000 mJ", "4000000 mJ", "40000000 mJ"],
+                explanation: "Step 1: 0.004 MJ = 0.004 × 10⁶ J = 4000 J.\nStep 2: Convert to mJ by multiplying by 10³: 4000 × 1000 = 4000000 mJ."
+            },
+            {
+                id: 9,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (9/20)',
+                question: "Convert 50000 pA (picoamperes) into milliamperes (mA).",
+                baseUnit: "A",
+                baseValue: 0.00000005, // 5e-8
+                targetUnit: "mA",
+                correctValue: 0.00005, // 5e-5
+                isNonAdjacent: true,
+                options: ["0.000005 mA", "0.00005 mA", "0.0005 mA", "0.05 mA"],
+                explanation: "Step 1: 50000 pA = 50000 × 10⁻¹² A = 0.00000005 A.\nStep 2: Convert to mA by multiplying by 10³: 0.00000005 × 1000 = 0.00005 mA."
+            },
+            {
+                id: 10,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (10/20)',
+                question: "Convert 0.08 km (kilometers) into micrometers (μm).",
+                baseUnit: "m",
+                baseValue: 80,
+                targetUnit: "μm",
+                correctValue: 80000000,
+                isNonAdjacent: true,
+                options: ["800000 μm", "8000000 μm", "80000000 μm", "800000000 μm"],
+                explanation: "Step 1: 0.08 km = 0.08 × 10³ m = 80 m.\nStep 2: Convert to μm by multiplying by 10⁶: 80 × 1000000 = 80000000 μm."
+            },
+            {
+                id: 11,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (11/20)',
+                question: "Convert 9.2 ns (nanoseconds) into milliseconds (ms).",
+                baseUnit: "s",
+                baseValue: 0.0000000092, // 9.2e-9
+                targetUnit: "ms",
+                correctValue: 0.0000092, // 9.2e-6
+                isNonAdjacent: true,
+                options: ["0.00000092 ms", "0.0000092 ms", "0.000092 ms", "0.00092 ms"],
+                explanation: "Step 1: 9.2 ns = 9.2 × 10⁻⁹ s = 0.0000000092 s.\nStep 2: Convert to ms by multiplying by 10³: 0.0000000092 × 1000 = 0.0000092 ms."
+            },
+            {
+                id: 12,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (12/20)',
+                question: "Convert 0.00035 GW (gigawatts) into megawatts (MW).",
+                baseUnit: "W",
+                baseValue: 350000,
+                targetUnit: "MW",
+                correctValue: 0.35,
+                isNonAdjacent: true,
+                options: ["0.035 MW", "0.35 MW", "3.5 MW", "35 MW"],
+                explanation: "Step 1: 0.00035 GW = 0.00035 × 10⁹ W = 350000 W.\nStep 2: Convert to MW by dividing by 10⁶: 350000 / 1000000 = 0.35 MW."
+            },
+            {
+                id: 13,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (13/20)',
+                question: "Convert 2500 μm (micrometers) into kilometers (km).",
+                baseUnit: "m",
+                baseValue: 0.0025,
+                targetUnit: "km",
+                correctValue: 0.0000025, // 2.5e-6
+                isNonAdjacent: true,
+                options: ["0.00000025 km", "0.0000025 km", "0.000025 km", "0.00025 km"],
+                explanation: "Step 1: 2500 μm = 2500 × 10⁻⁶ m = 0.0025 m.\nStep 2: Convert to km by dividing by 10³: 0.0025 / 1000 = 0.0000025 km."
+            },
+            {
+                id: 14,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (14/20)',
+                question: "Convert 0.015 MΩ (megohms) into milliohms (mΩ).",
+                baseUnit: "Ω",
+                baseValue: 15000,
+                targetUnit: "mΩ",
+                correctValue: 15000000,
+                isNonAdjacent: true,
+                options: ["150000 mΩ", "1500000 mΩ", "15000000 mΩ", "150000000 mΩ"],
+                explanation: "Step 1: 0.015 MΩ = 0.015 × 10⁶ Ω = 15000 Ω.\nStep 2: Convert to mΩ by multiplying by 10³: 15000 × 1000 = 15000000 mΩ."
+            },
+            {
+                id: 15,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (15/20)',
+                question: "Convert 180000 pF (picofarads) into microfarads (μF).",
+                baseUnit: "F",
+                baseValue: 0.00000018, // 1.8e-7
+                targetUnit: "μF",
+                correctValue: 0.18,
+                isNonAdjacent: true,
+                options: ["0.018 μF", "0.18 μF", "1.8 μF", "18 μF"],
+                explanation: "Step 1: 180000 pF = 180000 × 10⁻¹² F = 0.00000018 F.\nStep 2: Convert to μF by multiplying by 10⁶: 0.00000018 × 1000000 = 0.18 μF."
+            },
+            {
+                id: 16,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (16/20)',
+                question: "Convert 0.00006 km (kilometers) into millimeters (mm).",
+                baseUnit: "m",
+                baseValue: 0.06,
+                targetUnit: "mm",
+                correctValue: 60,
+                isNonAdjacent: true,
+                options: ["0.6 mm", "6 mm", "60 mm", "600 mm"],
+                explanation: "Step 1: 0.00006 km = 0.00006 × 10³ m = 0.06 m.\nStep 2: Convert to mm by multiplying by 10³: 0.06 × 1000 = 60 mm."
+            },
+            {
+                id: 17,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (17/20)',
+                question: "Convert 4200 nF (nanofarads) into kilofarads (kF).",
+                baseUnit: "F",
+                baseValue: 0.0000042, // 4.2e-6
+                targetUnit: "kF",
+                correctValue: 0.0000000042, // 4.2e-9
+                isNonAdjacent: true,
+                options: ["4.2e-9 kF", "4.2e-6 kF", "4.2e-3 kF", "0.42 kF"],
+                explanation: "Step 1: 4200 nF = 4200 × 10⁻⁹ F = 0.0000042 F.\nStep 2: Convert to kF by dividing by 10³: 0.0000042 / 1000 = 4.2e-9 kF."
+            },
+            {
+                id: 18,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (18/20)',
+                question: "Convert 0.05 kW (kilowatts) into microwatts (μW).",
+                baseUnit: "W",
+                baseValue: 50,
+                targetUnit: "μW",
+                correctValue: 50000000,
+                isNonAdjacent: true,
+                options: ["500000 μW", "5000000 μW", "50000000 μW", "500000000 μW"],
+                explanation: "Step 1: 0.05 kW = 0.05 × 10³ W = 50 W.\nStep 2: Convert to μW by multiplying by 10⁶: 50 × 1000000 = 50000000 μW."
+            },
+            {
+                id: 19,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (19/20)',
+                question: "Convert 3500000 μs (microseconds) into kiloseconds (ks).",
+                baseUnit: "s",
+                baseValue: 3.5,
+                targetUnit: "ks",
+                correctValue: 0.0035,
+                isNonAdjacent: true,
+                options: ["0.00035 ks", "0.0035 ks", "0.035 ks", "0.35 ks"],
+                explanation: "Step 1: 3500000 μs = 3500000 × 10⁻⁶ s = 3.5 s.\nStep 2: Convert to ks by dividing by 10³: 3.5 / 1000 = 0.0035 ks."
+            },
+            {
+                id: 20,
+                category: 'standard',
+                categoryLabel: 'Basic Prefix (20/20)',
+                question: "Convert 0.0008 Mg (megagrams) into milligrams (mg).",
+                baseUnit: "g",
+                baseValue: 800,
+                targetUnit: "mg",
+                correctValue: 800000,
+                isNonAdjacent: true,
+                options: ["8000 mg", "80000 mg", "800000 mg", "8000000 mg"],
+                explanation: "Step 1: 0.0008 Mg = 0.0008 × 10⁶ g = 800 g.\nStep 2: Convert to mg by multiplying by 10³: 800 × 1000 = 800000 mg."
+            },
+
+            // Extreme Scale
+            {
+                id: 21,
+                category: 'extreme',
+                categoryLabel: 'Extreme Scale',
+                question: "A high-performance storage array holds 2.5 TB (terabytes). How many megabytes (MB) is this?",
+                baseUnit: "bytes",
+                baseValue: 2500000000000,
+                targetUnit: "MB",
+                correctValue: 2500000,
+                options: ["25000 MB", "250000 MB", "2500000 MB", "25000000 MB"],
+                explanation: "1 TB = 10¹² bytes, 1 MB = 10⁶ bytes. The ratio is 10⁶. Thus, 2.5 × 1000000 = 2500000 MB (or 2.5e6 MB)."
+            },
+            {
+                id: 22,
                 category: 'extreme',
                 categoryLabel: 'Extreme Scale',
                 question: "Convert 0.000085 seconds into picoseconds (ps).",
+                baseUnit: "s",
+                baseValue: 0.000085,
                 targetUnit: "ps",
                 correctValue: 85000000,
-                options: ["8.5 × 10⁵ ps", "8.5 × 10⁶ ps", "8.5 × 10⁷ ps", "8.5 × 10⁸ ps"],
-                explanation: "0.000085 s = 8.5 × 10⁻⁵ s. To convert to ps (10⁻¹² s): 8.5 × 10⁻⁵ / 10⁻¹² = 8.5 × 10⁷ ps (85,000,000 ps)."
+                options: ["8.5e5 ps", "8.5e6 ps", "8.5e7 ps", "8.5e8 ps"],
+                explanation: "0.000085 s = 8.5 × 10⁻⁵ s. To convert to ps (10⁻¹² s): 8.5 × 10⁻⁵ / 10⁻¹² = 8.5e7 ps (85000000 ps)."
             },
 
             // Derived Units & Physics
             {
-                id: 7,
+                id: 23,
                 category: 'derived',
                 categoryLabel: 'Derived Units',
                 question: "A resistor has a resistance of 0.047 MΩ (megohms). Express this value in kilohms (kΩ).",
+                baseUnit: "Ω",
+                baseValue: 47000,
                 targetUnit: "kΩ",
                 correctValue: 47,
-                options: ["4.7 kΩ", "47 kΩ", "470 kΩ", "4,700 kΩ"],
-                explanation: "1 MΩ = 1,000 kΩ (10⁶ Ω vs 10³ Ω). Multiply 0.047 × 1,000 = 47 kΩ."
+                options: ["4.7 kΩ", "47 kΩ", "470 kΩ", "4700 kΩ"],
+                explanation: "1 MΩ = 1000 kΩ (10⁶ Ω vs 10³ Ω). Multiply 0.047 × 1000 = 47 kΩ."
             },
             {
-                id: 8,
+                id: 24,
                 category: 'derived',
                 categoryLabel: 'Derived Units',
                 question: "A laser pulse delivers 8.0 MJ of energy over a duration of 4.0 ns. What is the average power delivered in gigawatts (GW)?",
+                baseUnit: "W",
+                baseValue: 2000000000000,
                 targetUnit: "GW",
                 correctValue: 2000,
-                options: ["20 GW", "200 GW", "2,000 GW", "20,000 GW"],
-                explanation: "Power = Energy / Time = 8.0 MJ / 4.0 ns = (8.0 × 10⁶ J) / (4.0 × 10⁻⁹ s) = 2.0 × 10¹⁵ Watts = 2,000 GW (2.0 × 10³ GW)."
-            },
-            {
-                id: 9,
-                category: 'derived',
-                categoryLabel: 'Derived Units',
-                question: "A substance has a density of 1.2 mg/μL (milligrams per microliter). What is its density in grams per liter (g/L)?",
-                targetUnit: "g/L",
-                correctValue: 1200,
-                options: ["1.2 g/L", "12 g/L", "120 g/L", "1,200 g/L"],
-                explanation: "1 mg/μL = (10⁻³ g) / (10⁻⁶ L) = 10³ g/L = 1,000 g/L. Therefore, 1.2 × 1,000 = 1,200 g/L."
+                options: ["20 GW", "200 GW", "2000 GW", "20000 GW"],
+                explanation: "Power = Energy / Time = 8.0 MJ / 4.0 ns = (8.0 × 10⁶ J) / (4.0 × 10⁻⁹ s) = 2.0 × 10¹⁵ Watts = 2000 GW."
             },
 
             // Area & Volume
             {
-                id: 10,
+                id: 25,
                 category: 'area_vol',
                 categoryLabel: 'Area & Volume',
                 question: "The surface area of a microchip sensor is 0.25 mm². What is this area in square micrometers (μm²)?",
+                baseUnit: "m²",
+                baseValue: 0.00000025,
                 targetUnit: "μm²",
                 correctValue: 250000,
-                options: ["2,500 μm²", "25,000 μm²", "250,000 μm²", "2,500,000 μm²"],
-                explanation: "1 mm = 1,000 μm, so 1 mm² = (1,000 μm)² = 1,000,000 μm² (10⁶). Multiply 0.25 × 1,000,000 = 250,000 μm²."
-            },
-            {
-                id: 11,
-                category: 'area_vol',
-                categoryLabel: 'Area & Volume',
-                question: "Convert a volume of 1.5 km³ into cubic millimeters (mm³).",
-                targetUnit: "mm³",
-                correctValue: 1.5e18,
-                options: ["1.5 × 10¹² mm³", "1.5 × 10¹⁵ mm³", "1.5 × 10¹⁸ mm³", "1.5 × 10²¹ mm³"],
-                explanation: "1 km = 10⁶ mm. Cubic factor: (10⁶)³ = 10¹⁸. Therefore, 1.5 km³ = 1.5 × 10¹⁸ mm³."
+                options: ["2500 μm²", "25000 μm²", "250000 μm²", "2500000 μm²"],
+                explanation: "1 mm = 1000 μm, so 1 mm² = (1000 μm)² = 1000000 μm² (10⁶). Multiply 0.25 × 1000000 = 250000 μm²."
             }
         ];
 
         // Application State
-        let currentTopic = 'all';
-        let currentInputMode = 'mc'; // 'mc' or 'direct'
+        let currentTopic = 'standard';
+        let currentInputMode = 'direct'; // 'direct' (2-step input) or 'mc'
         let currentQuestions = [];
         let currentIndex = 0;
         let score = 0;
         let streak = 0;
         let answered = false;
         let attemptsThisQuestion = 0;
+
+        // Intermediate step state tracking
+        let isBaseStepCorrect = false;
 
         // Dynamic Elements
         const questionText = document.getElementById('question-text');
@@ -454,7 +664,6 @@
         const feedbackText = document.getElementById('feedback-text');
         const scoreDisplay = document.getElementById('score-display');
         const streakDisplay = document.getElementById('streak-display');
-        const nextBtn = document.getElementById('next-btn');
 
         // Initialization
         window.onload = () => {
@@ -462,14 +671,13 @@
             loadQuestion();
         };
 
-        // Filter question pool based on topic (Hardcoded fixed ordering for synchronized student practice)
+        // Filter question pool based on topic
         function filterQuestions() {
             if (currentTopic === 'all') {
                 currentQuestions = [...QUESTION_BANK];
             } else {
                 currentQuestions = QUESTION_BANK.filter(q => q.category === currentTopic);
             }
-            // Deterministic fixed ordering so every student opens the exact same test sequence
             currentQuestions.sort((a, b) => a.id - b.id);
             currentIndex = 0;
         }
@@ -490,7 +698,7 @@
             loadQuestion();
         }
 
-        // Set active input mode (Multiple Choice vs Direct Calculation)
+        // Set active input mode (Direct 2-Step vs Multiple Choice)
         function setInputMode(mode) {
             currentInputMode = mode;
             const mcBtn = document.getElementById('mode-mc');
@@ -517,6 +725,7 @@
 
             answered = false;
             attemptsThisQuestion = 0;
+            isBaseStepCorrect = false;
             feedbackCard.classList.add('hidden');
             
             const q = currentQuestions[currentIndex];
@@ -541,7 +750,7 @@
             renderAnswerInterface();
         }
 
-        // Render input methods (Multiple Choice / Direct Form)
+        // Render input methods (Multiple Choice / Direct 2-Step Form)
         function renderAnswerInterface() {
             const q = currentQuestions[currentIndex];
             answerContainer.innerHTML = '';
@@ -563,43 +772,73 @@
 
                 answerContainer.appendChild(grid);
             } else {
-                // Direct Input Box
-                const form = document.createElement('form');
-                form.className = 'space-y-4';
-                form.onsubmit = (e) => {
-                    e.preventDefault();
-                    const inputVal = document.getElementById('direct-input').value;
-                    checkDirectInput(inputVal, q);
-                };
+                // Direct Input Mode with Intermediate Main Unit Box for Non-Adjacent Conversions
+                const wrapper = document.createElement('div');
+                wrapper.className = 'space-y-4';
 
-                form.innerHTML = `
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <div class="relative flex-1">
-                            <input type="text" id="direct-input" placeholder="e.g. 4700 or 4.7e3" 
-                                class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4 py-3 text-white font-mono text-base placeholder-slate-600 outline-none transition">
-                            <span class="absolute right-3 top-3.5 text-xs font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">${q.targetUnit}</span>
+                if (q.baseValue !== undefined && q.baseUnit) {
+                    wrapper.innerHTML = `
+                        <!-- Step 1: Intermediate Base Unit Conversion -->
+                        <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-700/60 space-y-2">
+                            <label class="block text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+                                Step 1: Intermediate Conversion to Main/Base Unit (${q.baseUnit})
+                            </label>
+                            <div class="relative flex items-center">
+                                <input type="text" id="base-step-input" placeholder="Value in main unit (${q.baseUnit}), e.g. 0.0000045 or 4.5e-6" 
+                                    class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4 py-3 text-white font-mono text-sm sm:text-base placeholder-slate-600 outline-none transition pr-16">
+                                <span class="absolute right-3 text-xs font-mono font-bold text-cyan-300 bg-slate-800 px-2 py-1 rounded border border-slate-700">${q.baseUnit}</span>
+                            </div>
+                            <div id="base-step-feedback" class="text-xs font-mono hidden"></div>
                         </div>
-                        <button type="submit" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 shadow-lg shadow-cyan-600/20">
-                            <i class="fa-solid fa-check"></i>
-                            <span>Check Answer</span>
-                        </button>
-                    </div>
-                `;
 
-                answerContainer.appendChild(form);
+                        <!-- Step 2: Final Target Unit Conversion -->
+                        <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-700/60 space-y-2">
+                            <label class="block text-xs font-semibold text-emerald-400 uppercase tracking-wider">
+                                Step 2: Final Conversion to Target Unit (${q.targetUnit})
+                            </label>
+                            <div class="relative flex items-center">
+                                <input type="text" id="target-step-input" placeholder="Value in target unit (${q.targetUnit}), e.g. 4.5e-9" 
+                                    class="w-full bg-slate-900 border border-slate-700 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 rounded-xl px-4 py-3 text-white font-mono text-sm sm:text-base placeholder-slate-600 outline-none transition pr-16">
+                                <span class="absolute right-3 text-xs font-mono font-bold text-emerald-300 bg-slate-800 px-2 py-1 rounded border border-slate-700">${q.targetUnit}</span>
+                            </div>
+                            <div id="target-step-feedback" class="text-xs font-mono hidden"></div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button id="submit-2step-btn" onclick="checkTwoStepInput()" class="w-full py-3.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 shadow-lg shadow-cyan-600/20">
+                            <i class="fa-solid fa-check"></i>
+                            <span>Verify Solution Steps</span>
+                        </button>
+                    `;
+                } else {
+                    // Standard Single Direct Input
+                    wrapper.innerHTML = `
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <div class="relative flex-1">
+                                <input type="text" id="direct-input" placeholder="e.g. 4700 or 4.7e3" 
+                                    class="w-full bg-slate-900 border border-slate-700 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4 py-3 text-white font-mono text-base placeholder-slate-600 outline-none transition pr-16">
+                                <span class="absolute right-3 top-3.5 text-xs font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">${q.targetUnit}</span>
+                            </div>
+                            <button onclick="checkSingleDirectInput()" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 shadow-lg shadow-cyan-600/20">
+                                <i class="fa-solid fa-check"></i>
+                                <span>Check Answer</span>
+                            </button>
+                        </div>
+                    `;
+                }
+
+                answerContainer.appendChild(wrapper);
             }
         }
 
         // Trigger confetti animation for reward
         function triggerConfettiBurst() {
             if (typeof confetti === 'function') {
-                // Burst 1
                 confetti({
                     particleCount: 80,
                     spread: 70,
                     origin: { y: 0.6 }
                 });
-                // Burst 2 (side angles)
                 setTimeout(() => {
                     confetti({
                         particleCount: 50,
@@ -617,13 +856,96 @@
             }
         }
 
+        // Validate 2-Step direct inputs
+        function checkTwoStepInput() {
+            if (answered) return;
+
+            const q = currentQuestions[currentIndex];
+            const baseInputVal = document.getElementById('base-step-input').value;
+            const targetInputVal = document.getElementById('target-step-input').value;
+
+            const parsedBase = parseScientificInput(baseInputVal);
+            const parsedTarget = parseScientificInput(targetInputVal);
+
+            const baseFeedback = document.getElementById('base-step-feedback');
+            const targetFeedback = document.getElementById('target-step-feedback');
+            const baseInputEl = document.getElementById('base-step-input');
+            const targetInputEl = document.getElementById('target-step-input');
+
+            let baseValid = false;
+            let targetValid = false;
+
+            // Step 1 Validation (Main/Base Unit)
+            if (!isNaN(parsedBase) && isApproxEqual(parsedBase, q.baseValue)) {
+                baseValid = true;
+                baseFeedback.className = "text-xs font-mono text-emerald-400 mt-1 flex items-center space-x-1";
+                baseFeedback.innerHTML = `<i class="fa-solid fa-check-circle"></i> <span>Step 1 Correct! Base unit value is ${formatValueNoCommas(q.baseValue)} ${q.baseUnit}</span>`;
+                baseInputEl.classList.remove('border-slate-700', 'border-rose-500');
+                baseInputEl.classList.add('border-emerald-500', 'bg-emerald-950/20');
+            } else {
+                baseFeedback.className = "text-xs font-mono text-rose-400 mt-1 flex items-center space-x-1";
+                baseFeedback.innerHTML = `<i class="fa-solid fa-times-circle"></i> <span>Step 1 Incorrect. Check conversion to base unit (${q.baseUnit}).</span>`;
+                baseInputEl.classList.remove('border-slate-700', 'border-emerald-500');
+                baseInputEl.classList.add('border-rose-500', 'bg-rose-950/20');
+            }
+            baseFeedback.classList.remove('hidden');
+
+            // Step 2 Validation (Target Unit)
+            if (!isNaN(parsedTarget) && isApproxEqual(parsedTarget, q.correctValue)) {
+                targetValid = true;
+                targetFeedback.className = "text-xs font-mono text-emerald-400 mt-1 flex items-center space-x-1";
+                targetFeedback.innerHTML = `<i class="fa-solid fa-check-circle"></i> <span>Step 2 Correct! Final answer is ${formatValueNoCommas(q.correctValue)} ${q.targetUnit}</span>`;
+                targetInputEl.classList.remove('border-slate-700', 'border-rose-500');
+                targetInputEl.classList.add('border-emerald-500', 'bg-emerald-950/20');
+            } else {
+                targetFeedback.className = "text-xs font-mono text-rose-400 mt-1 flex items-center space-x-1";
+                targetFeedback.innerHTML = `<i class="fa-solid fa-times-circle"></i> <span>Step 2 Incorrect. Check conversion to target unit (${q.targetUnit}).</span>`;
+                targetInputEl.classList.remove('border-slate-700', 'border-emerald-500');
+                targetInputEl.classList.add('border-rose-500', 'bg-rose-950/20');
+            }
+            targetFeedback.classList.remove('hidden');
+
+            attemptsThisQuestion++;
+
+            if (baseValid && targetValid) {
+                answered = true;
+                triggerConfettiBurst();
+                highlightAnswer(true, q);
+            } else {
+                highlightAnswer(false, q);
+            }
+        }
+
+        // Validate single direct input
+        function checkSingleDirectInput() {
+            if (answered) return;
+            const q = currentQuestions[currentIndex];
+            const inputVal = document.getElementById('direct-input').value;
+            const parsedVal = parseScientificInput(inputVal);
+
+            if (isNaN(parsedVal)) {
+                showFeedback(false, "Invalid format! Enter a valid number or scientific format like 4.7e3.");
+                return;
+            }
+
+            attemptsThisQuestion++;
+            const isCorrect = isApproxEqual(parsedVal, q.correctValue);
+            
+            if (isCorrect) {
+                answered = true;
+                triggerConfettiBurst();
+            }
+
+            highlightAnswer(isCorrect, q);
+        }
+
         // Validate multiple choice selections
         function checkMultipleChoice(selectedOption, question, btnElement) {
             if (answered) return;
             attemptsThisQuestion++;
 
             const numericPart = parseScientificInput(selectedOption.replace(/[^0-9.eE-]/g, ''));
-            const isCorrect = Math.abs(numericPart - question.correctValue) / Math.max(Math.abs(question.correctValue), 1e-9) < 0.02;
+            const isCorrect = isApproxEqual(numericPart, question.correctValue);
 
             if (isCorrect) {
                 answered = true;
@@ -633,31 +955,26 @@
             highlightAnswer(isCorrect, question, btnElement);
         }
 
-        // Validate direct text inputs
-        function checkDirectInput(inputValue, question) {
-            if (answered) return;
-            
-            const parsedVal = parseScientificInput(inputValue);
-            if (isNaN(parsedVal)) {
-                showFeedback(false, "Invalid format! Enter a valid number or scientific format like 4.7e3.");
-                return;
-            }
+        // Numerical equality check with floating point safety
+        function isApproxEqual(val1, val2) {
+            const tolerance = 0.02;
+            const diff = Math.abs(val1 - val2);
+            const magnitude = Math.max(Math.abs(val2), 1e-12);
+            return (diff / magnitude) < tolerance;
+        }
 
-            attemptsThisQuestion++;
-            const isCorrect = Math.abs(parsedVal - question.correctValue) / Math.max(Math.abs(question.correctValue), 1e-9) < 0.02;
-            
-            if (isCorrect) {
-                answered = true;
-                triggerConfettiBurst();
+        // Format numerical outputs strictly without commas
+        function formatValueNoCommas(val) {
+            if (val === undefined || val === null) return '';
+            if (Math.abs(val) < 1e-5 || Math.abs(val) >= 1e8) {
+                return val.toExponential(3).replace(/\.0+e/, 'e');
             }
-
-            highlightAnswer(isCorrect, question);
+            return String(val);
         }
 
         // Show visual state updates
         function highlightAnswer(isCorrect, question, btnElement = null) {
             if (isCorrect) {
-                // Award score based on first try bonus
                 const scoreAdd = attemptsThisQuestion === 1 ? 100 : 50;
                 score += scoreAdd;
                 streak += 1;
@@ -679,27 +996,26 @@
                     btnElement.classList.remove('bg-slate-900/50');
                     btnElement.classList.add('bg-rose-950/80', 'border-rose-500', 'text-rose-300');
                     btnElement.querySelector('i').className = 'fa-solid fa-circle-xmark text-rose-400';
-                    // Disable wrong option to narrow down choice in MC mode
                     btnElement.disabled = true;
                     btnElement.classList.add('opacity-60', 'cursor-not-allowed');
                 }
 
-                showFeedback(false, `Not quite! Attempt #${attemptsThisQuestion}. Review prefix conversion powers of 10 and try again!`, question.correctValue, question.targetUnit);
+                showFeedback(false, `Attempt #${attemptsThisQuestion}. Review the intermediate base unit conversion step and try again!`);
             }
         }
 
         // Render detailed solution explanation panel
-        function showFeedback(isCorrect, explanationText, correctVal = null, unit = '') {
+        function showFeedback(isCorrect, explanationText) {
             feedbackCard.classList.remove('hidden', 'bg-emerald-950/40', 'border-emerald-700/50', 'bg-rose-950/40', 'border-rose-700/50');
 
             if (isCorrect) {
                 feedbackCard.classList.add('bg-emerald-950/40', 'border-emerald-700/50');
                 feedbackTitle.className = "flex items-center space-x-2 font-bold text-sm text-emerald-400";
-                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-lg"></i><span>Correct Answer! 🎉</span>`;
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-lg"></i><span>Correct Solution! 🎉</span>`;
             } else {
                 feedbackCard.classList.add('bg-rose-950/40', 'border-rose-700/50');
                 feedbackTitle.className = "flex items-center space-x-2 font-bold text-sm text-rose-400";
-                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-lg"></i><span>Try Again!</span>`;
+                feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-lg"></i><span>Review Step & Try Again</span>`;
             }
 
             feedbackText.innerText = explanationText;
@@ -718,14 +1034,13 @@
                 currentIndex++;
                 loadQuestion();
             } else {
-                // Completed set
                 progressBar.style.width = '100%';
-                questionText.innerText = "🎉 Category Completed!";
+                questionText.innerText = "🎉 Section Completed!";
                 answerContainer.innerHTML = `
                     <div class="p-6 bg-slate-900/60 rounded-xl border border-slate-700 text-center space-y-4">
-                        <p class="text-slate-300">You completed all questions in this topic!</p>
+                        <p class="text-slate-300">You completed all 20 basic prefix problems!</p>
                         <button onclick="filterQuestions(); loadQuestion();" class="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-semibold text-sm transition">
-                            Restart Category
+                            Restart Basic Prefixes Practice
                         </button>
                     </div>
                 `;
@@ -737,21 +1052,21 @@
             nextQuestion();
         }
 
-        // Helper function to parse inputs including scientific notation (e.g. 1.5e18, 1.5*10^18, 4,700)
+        // Helper function to parse inputs without commas and handle scientific notation
         function parseScientificInput(str) {
             if (typeof str === 'number') return str;
             if (!str) return NaN;
 
-            // Clean commas and whitespace
-            let cleaned = String(str).trim().replace(/,/g, '');
+            // Remove any commas or spaces completely
+            let cleaned = String(str).trim().replace(/,/g, '').replace(/\s+/g, '');
 
-            // Handle e-notation directly (e.g., "1.5e18" or "4.7e-3")
+            // Handle standard numeric or e-notation (e.g. 4.5e-6)
             if (!isNaN(Number(cleaned))) {
                 return Number(cleaned);
             }
 
-            // Handle "a*10^b" or "a x 10^b" notation
-            const sciPattern = /^([+-]?\d*\.?\d+)\s*[\*xX×]?\s*10\^([+-]?\d+)$/;
+            // Handle "a*10^b" or "a x 10^b" or "a*10**b" notation
+            const sciPattern = /^([+-]?\d*\.?\d+)\s*[\*xX×]?\s*10\^?([+-]?\d+)$/;
             const match = cleaned.match(sciPattern);
             if (match) {
                 const coeff = parseFloat(match[1]);
@@ -759,9 +1074,7 @@
                 return coeff * Math.pow(10, exp);
             }
 
-            // Fallback float extraction
-            const extractedFloat = parseFloat(cleaned);
-            return extractedFloat;
+            return parseFloat(cleaned);
         }
 
         // Modal Controls
